@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package qh.samples;
+
+option go_package = "github.com/qh-org/samples/apis/v1alpha1";
+
+message BAAA {
+  string title = 1;
+}
+
+message GetTitleReq {}
+message GetTitleResp { BAAA baaa = 1;}
+
+service Inventory {
+  rpc GetTitle(GetTitleReq) returns (GetTitleResp) {}
+}
