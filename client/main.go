@@ -18,7 +18,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := pb.NewInventoryClient(conn)
+	client := pb.NewListTitleServiceClient(conn)
 	title, err := client.GetTitle(context.Background(), &pb.GetTitleReq{})
 	if err != nil {
 		log.Fatalf("failed to get title: %v", err)

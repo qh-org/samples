@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// InventoryClient is the client API for Inventory service.
+// ListTitleServiceClient is the client API for ListTitleService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type InventoryClient interface {
+type ListTitleServiceClient interface {
 	GetTitle(ctx context.Context, in *GetTitleReq, opts ...grpc.CallOption) (*GetTitleResp, error)
 }
 
-type inventoryClient struct {
+type listTitleServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewInventoryClient(cc grpc.ClientConnInterface) InventoryClient {
-	return &inventoryClient{cc}
+func NewListTitleServiceClient(cc grpc.ClientConnInterface) ListTitleServiceClient {
+	return &listTitleServiceClient{cc}
 }
 
-func (c *inventoryClient) GetTitle(ctx context.Context, in *GetTitleReq, opts ...grpc.CallOption) (*GetTitleResp, error) {
+func (c *listTitleServiceClient) GetTitle(ctx context.Context, in *GetTitleReq, opts ...grpc.CallOption) (*GetTitleResp, error) {
 	out := new(GetTitleResp)
-	err := c.cc.Invoke(ctx, "/qh.samples.Inventory/GetTitle", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/qh.samples.ListTitleService/GetTitle", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// InventoryServer is the server API for Inventory service.
-// All implementations must embed UnimplementedInventoryServer
+// ListTitleServiceServer is the server API for ListTitleService service.
+// All implementations must embed UnimplementedListTitleServiceServer
 // for forward compatibility
-type InventoryServer interface {
+type ListTitleServiceServer interface {
 	GetTitle(context.Context, *GetTitleReq) (*GetTitleResp, error)
-	mustEmbedUnimplementedInventoryServer()
+	mustEmbedUnimplementedListTitleServiceServer()
 }
 
-// UnimplementedInventoryServer must be embedded to have forward compatible implementations.
-type UnimplementedInventoryServer struct {
+// UnimplementedListTitleServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedListTitleServiceServer struct {
 }
 
-func (UnimplementedInventoryServer) GetTitle(context.Context, *GetTitleReq) (*GetTitleResp, error) {
+func (UnimplementedListTitleServiceServer) GetTitle(context.Context, *GetTitleReq) (*GetTitleResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTitle not implemented")
 }
-func (UnimplementedInventoryServer) mustEmbedUnimplementedInventoryServer() {}
+func (UnimplementedListTitleServiceServer) mustEmbedUnimplementedListTitleServiceServer() {}
 
-// UnsafeInventoryServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to InventoryServer will
+// UnsafeListTitleServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ListTitleServiceServer will
 // result in compilation errors.
-type UnsafeInventoryServer interface {
-	mustEmbedUnimplementedInventoryServer()
+type UnsafeListTitleServiceServer interface {
+	mustEmbedUnimplementedListTitleServiceServer()
 }
 
-func RegisterInventoryServer(s grpc.ServiceRegistrar, srv InventoryServer) {
-	s.RegisterService(&Inventory_ServiceDesc, srv)
+func RegisterListTitleServiceServer(s grpc.ServiceRegistrar, srv ListTitleServiceServer) {
+	s.RegisterService(&ListTitleService_ServiceDesc, srv)
 }
 
-func _Inventory_GetTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ListTitleService_GetTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetTitleReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InventoryServer).GetTitle(ctx, in)
+		return srv.(ListTitleServiceServer).GetTitle(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/qh.samples.Inventory/GetTitle",
+		FullMethod: "/qh.samples.ListTitleService/GetTitle",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InventoryServer).GetTitle(ctx, req.(*GetTitleReq))
+		return srv.(ListTitleServiceServer).GetTitle(ctx, req.(*GetTitleReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Inventory_ServiceDesc is the grpc.ServiceDesc for Inventory service.
+// ListTitleService_ServiceDesc is the grpc.ServiceDesc for ListTitleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Inventory_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "qh.samples.Inventory",
-	HandlerType: (*InventoryServer)(nil),
+var ListTitleService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "qh.samples.ListTitleService",
+	HandlerType: (*ListTitleServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetTitle",
-			Handler:    _Inventory_GetTitle_Handler,
+			Handler:    _ListTitleService_GetTitle_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

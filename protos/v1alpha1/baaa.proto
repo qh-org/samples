@@ -11,6 +11,6 @@ message BAAA {
 message GetTitleReq {}
 message GetTitleResp { BAAA baaa = 1;}
 
-service Inventory {
+service ListTitleService {
   rpc GetTitle(GetTitleReq) returns (GetTitleResp) {}
 }

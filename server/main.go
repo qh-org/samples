@@ -12,7 +12,7 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedInventoryServer
+	pb.UnimplementedListTitleServiceServer
 }
 
 func (s *server) GetTitle(ctx context.Context, in *pb.GetTitleReq) (*pb.GetTitleResp, error) {
@@ -30,7 +30,7 @@ func main() {
 
 	s := grpc.NewServer()
 	reflection.Register(s)
-	pb.RegisterInventoryServer(s, &server{})
+	pb.RegisterListTitleServiceServer(s, &server{})
 	if err := s.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
